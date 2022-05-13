@@ -13,6 +13,9 @@ const globalStyles = {
   primaryTextColor: '#7367f0',
   secondaryTextColor: '#c1c5ca',
   successTextColor: '#28c76f',
+
+  //border color
+  borderTable: '#3b4253',
 }
 
 export default globalStyles

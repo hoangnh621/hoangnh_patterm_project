@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import globalStyles from '../../../styles/globalStyles'
@@ -51,12 +51,13 @@ const StyleTable = styled.div`
       tr {
         height: 52px;
         padding: 0 2%;
+        border-bottom: 0.5px solid ${globalStyles.borderTable};
       }
       th {
         text-align: left;
         font-size: 12px;
         padding: 0;
-        color: ${globalStyles.secondaryTextColor};
+        color: #fff;
       }
     }
   }
@@ -107,6 +108,7 @@ const StyleTable = styled.div`
 `
 
 const TableGithubUser = () => {
+  const refWrapTable = useRef(null)
   const [increasePage, setIncreasePage] = useState(2)
   const handlePage = () => {
     setIncreasePage((prev) => prev + 1)
@@ -130,6 +132,29 @@ const TableGithubUser = () => {
       heightSearchInput -
       TOP_BOTTOM_PADDING * paddingValue +
       'px'
+  }, [])
+  //recalculate when changing window size
+  useEffect(() => {
+    const handleResize = () => {
+      const TOP_BOTTOM_PADDING = 2
+      const elementScreenSearchUser =
+        document.getElementById('screenSearchUser')
+      const newHeightWrapImg = calculateHeightImgArea()
+      const screenSearchUserPadding = window
+        .getComputedStyle(elementScreenSearchUser)
+        .getPropertyValue('padding')
+      const paddingValue = parsePxToNumber(screenSearchUserPadding)
+      const searchInput = document.getElementById('searchInput')
+      const heightSearchInput = searchInput.offsetHeight
+      refWrapTable.current.style.height =
+        newHeightWrapImg -
+        heightSearchInput -
+        TOP_BOTTOM_PADDING * paddingValue +
+        'px'
+    }
+    window.addEventListener('resize', handleResize)
+
+    return () => window.addEventListener('resize', handleResize)
   }, [])
   //add event API scroll
   const dispatch = useDispatch()
@@ -168,7 +193,7 @@ const TableGithubUser = () => {
   }, [])
 
   return (
-    <StyleTable id="wrapTable">
+    <StyleTable id="wrapTable" ref={refWrapTable}>
       <div id="scrollArea">
         <table>
           <thead>

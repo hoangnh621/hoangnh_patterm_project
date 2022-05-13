@@ -11,6 +11,7 @@ import { fetchGithubRepos, setCurrentUser } from './slice'
 const StyleRow = styled.tr`
   height: 52px;
   padding: 0 2%;
+  border-bottom: 0.5px solid ${globalStyles.borderTable};
   td {
     font-size: 13px;
     color: ${globalStyles.secondaryTextColor};

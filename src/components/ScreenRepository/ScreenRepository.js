@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import globalStyles from '../../styles/globalStyles'
 import calculateHeightImgArea from '../helpers/calculateHeightImgArea'
@@ -31,6 +31,7 @@ const StyleScreenRepos = styled.div`
 `
 
 const ScreenRepository = () => {
+  const refScreenRepository = useRef(null)
   // calculate the repository area
   useEffect(() => {
     const elementScreenRepos = document.getElementById('screenRepository')
@@ -40,8 +41,21 @@ const ScreenRepository = () => {
       elementScreenRepos.style.height = newHeight + 'px'
     }
   }, [])
+  //recalculate when changing window size
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth
+      const newHeight = calculateHeightImgArea()
+      console.log('newHeight', newHeight)
+      if (screenWidth > 640) {
+        refScreenRepository.current.style.height = newHeight + 'px'
+      }
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  })
   return (
-    <StyleScreenRepos id="screenRepository">
+    <StyleScreenRepos id="screenRepository" ref={refScreenRepository}>
       <div className="wrapItemRepos">
         <UserDetail />
         <ReposTable />

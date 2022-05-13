@@ -30,12 +30,12 @@ const StyleReposTable = styled.div`
     }
     #wrapTable {
       box-sizing: border-box;
-      overflow-x: auto;
-      overflow-y: scroll;
+      overflow: auto;
       padding: 21px;
       /* width */
       &::-webkit-scrollbar {
         width: 10px;
+        height: 10px;
       }
 
       /* Track */
@@ -49,6 +49,11 @@ const StyleReposTable = styled.div`
         background: ${globalStyles.primaryTextColor};
         border-radius: 10px;
       }
+
+      &::-webkit-scrollbar-corner {
+        background-color: ${globalStyles.itemDarkBackGround};
+        border-radius: 5px;
+      }
       table {
         width: 100%;
         border-collapse: collapse;
@@ -56,12 +61,13 @@ const StyleReposTable = styled.div`
         tr {
           height: 52px;
           padding: 0 2%;
+          border-bottom: 0.5px solid ${globalStyles.borderTable};
         }
         th {
           text-align: left;
           font-size: 12px;
           padding: 0;
-          color: ${globalStyles.secondaryTextColor};
+          color: #fff;
         }
       }
     }
@@ -161,6 +167,18 @@ const ReposTable = () => {
     const tableHeader = document.getElementById('tableHeader')
     const tableHeaderHeight = tableHeader.getBoundingClientRect().height
     wrapTable.style.height = wrapReposTableHeight - tableHeaderHeight + 'px'
+  })
+  //recalculate when changing window size
+  useEffect(() => {
+    const handleResize = () => {
+      const wrapReposTable = document.getElementById('wrapReposTable')
+      const wrapReposTableHeight = wrapReposTable.getBoundingClientRect().height
+      const tableHeader = document.getElementById('tableHeader')
+      const tableHeaderHeight = tableHeader.getBoundingClientRect().height
+      wrapTable.style.height = wrapReposTableHeight - tableHeaderHeight + 'px'
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.addEventListener('resize', handleResize)
   })
   // add event API scroll
   const dispatch = useDispatch()

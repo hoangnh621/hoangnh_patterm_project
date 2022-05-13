@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import globalStyles from '../../styles/globalStyles'
@@ -31,16 +31,26 @@ const StyledSearchUser = styled.div`
 `
 
 const ScreenSearchUser = () => {
+  const githubUser = useSelector(getUserByUserName)
+  const refScreenSearchUser = useRef(null)
   // calculate the search user area
   useEffect(() => {
     const elementScreenSearchUser = document.getElementById('screenSearchUser')
     const newHeightWrapImg = calculateHeightImgArea()
     elementScreenSearchUser.style.height = newHeightWrapImg + 'px'
   }, [])
-  const githubUser = useSelector(getUserByUserName)
+  //recalculate when changing window size
+  useEffect(() => {
+    const handleResize = () => {
+      const newHeightWrapImg = calculateHeightImgArea()
+      refScreenSearchUser.current.style.height = newHeightWrapImg + 'px'
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   return (
-    <StyledSearchUser id="screenSearchUser">
+    <StyledSearchUser id="screenSearchUser" ref={refScreenSearchUser}>
       <div className="searchInputArea">
         <SearchInput />
       </div>
