@@ -1,0 +1,29 @@
+@font-face {
+  font-family: 'icomoonClose';
+  src:  url('fonts/icomoon.eot?t3ahj');
+  src:  url('fonts/icomoon.eot?t3ahj#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?t3ahj') format('truetype'),
+    url('fonts/icomoon.woff?t3ahj') format('woff'),
+    url('fonts/icomoon.svg?t3ahj#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+
+
+.icon-close:before {
+  content: "\e900";
+   /* use !important to prevent issues with browser extensions that change fonts */
+   font-family: 'icomoonClose' !important;
+   speak: never;
+   font-style: normal;
+   font-weight: normal;
+   font-variant: normal;
+   text-transform: none;
+   line-height: 1;
+
+   /* Better Font Rendering =========== */
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}

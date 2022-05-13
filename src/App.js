@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Header from './components/common/Header/Header'
+import Header from './components/layout/Header/Header'
+import PageNotFound from './components/PageNotFound/PageNotFound'
 import ScreenRepository from './components/ScreenRepository/ScreenRepository'
 import ScreenSearchUser from './components/ScreenSearchUser/ScreenSearchUser'
-import './styles/reset.scss'
+import './styles/index.scss'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<ScreenSearchUser />} />
+          <Route path="*" element={<PageNotFound />} />
           <Route path="/repository" element={<ScreenRepository />} />
         </Routes>
       </BrowserRouter>

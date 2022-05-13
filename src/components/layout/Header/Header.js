@@ -24,11 +24,35 @@ const Logo = styled.div`
       line-height: 34px;
     }
   }
+
+  @media screen and (max-width: 960px) {
+    a {
+      span {
+        font-size: 36px;
+      }
+      h2 {
+        font-size: 28px;
+        line-height: 38px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    a {
+      span {
+        font-size: 40px;
+      }
+      h2 {
+        font-size: 32px;
+        line-height: 42px;
+      }
+    }
+  }
 `
 
 const Header = () => {
   return (
-    <Logo>
+    <Logo id="header">
       <NavLink to="/">
         <span className="icon-github"></span>
         <h2>GITHUB</h2>
