@@ -190,10 +190,14 @@ const ReposTable = () => {
         wrapTable.scrollHeight - wrapTable.clientHeight - wrapTable.scrollTop
       if (Math.abs(isScrollBottom) < 1) {
         dispatch(
-          fetchGithubRepos({ username: currentUser.login, page: increasePage }),
+          fetchGithubRepos({
+            username: currentUser.login,
+            page: increasePage,
+            type: 'add',
+          }),
         )
+        handlePage()
       }
-      handlePage()
     }
     wrapTable.addEventListener('scroll', handleScroll)
     return () => wrapTable.removeEventListener('scroll', handleScroll)

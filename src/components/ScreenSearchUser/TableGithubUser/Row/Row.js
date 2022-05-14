@@ -30,7 +30,9 @@ const Row = ({ user }) => {
   const navigate = useNavigate()
   const moveRepoScreen = () => {
     navigate('/repository')
-    dispatch(fetchGithubRepos({ username: user.login }))
+    dispatch(
+      fetchGithubRepos({ username: user.login, page: 1, type: 'replace' }),
+    )
     dispatch(setCurrentUser(user))
   }
 

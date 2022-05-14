@@ -1,6 +1,14 @@
-import React from 'react'
+// @ts-nocheck
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import globalStyles from '../../../../styles/globalStyles'
+import {
+  fetchReadMeFile,
+  getCurrentUser,
+  getReadMeFile,
+} from '../../../ScreenSearchUser/TableGithubUser/Row/slice'
+import ReadMePopUp from './ReadMePopUp/ReadMePopUp'
 
 const StyleRow = styled.tr`
   height: 52px;
@@ -23,12 +31,33 @@ const StyleRow = styled.tr`
 `
 
 const Row = ({ repos }) => {
+  const [isPopup, setIsPopup] = useState(false)
+  const handleToggle = () => {
+    setIsPopup(!isPopup)
+  }
+  const dispatch = useDispatch()
+  const currentUser = useSelector(getCurrentUser)
+  const readMeFile = useSelector(getReadMeFile)
+  useEffect(() => {
+    if (readMeFile) console.log('readMeFile', atob(readMeFile.content))
+  })
+  const popupReadme = () => {
+    dispatch(
+      fetchReadMeFile({
+        username: currentUser.login,
+        selectedRepo: repos.name,
+      }),
+    )
+    handleToggle()
+  }
+
   return (
-    <StyleRow>
+    <StyleRow onClick={popupReadme}>
       <td>{repos.name}</td>
       <td>{repos.html_url}</td>
       <td>{repos.language}</td>
       <td>{repos.default_branch}</td>
+      {isPopup ? <ReadMePopUp handleToggle={handleToggle} /> : true}
     </StyleRow>
   )
 }

@@ -46,7 +46,6 @@ const ScreenRepository = () => {
     const handleResize = () => {
       const screenWidth = window.innerWidth
       const newHeight = calculateHeightImgArea()
-      console.log('newHeight', newHeight)
       if (screenWidth > 640) {
         refScreenRepository.current.style.height = newHeight + 'px'
       }

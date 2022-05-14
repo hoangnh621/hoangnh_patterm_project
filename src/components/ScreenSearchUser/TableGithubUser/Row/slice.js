@@ -5,8 +5,28 @@ import githubServices from '../../../services/githubServices'
 export const fetchGithubRepos = createAsyncThunk(
   'repos/fetchGithubRepos',
   async (arg) => {
-    // @ts-ignore
-    const res = await githubServices.getRepoByUsername(arg.username, arg.page)
+    const res = await githubServices.getRepoByUsername(
+      // @ts-ignore
+      arg.username,
+      // @ts-ignore
+      arg.page,
+      // @ts-ignore
+      arg.type,
+    )
+    return res.data
+  },
+)
+
+export const fetchReadMeFile = createAsyncThunk(
+  'repos/fetchReadMeFile',
+  async (arg) => {
+    const res = await githubServices.getReadMeTxt(
+      // @ts-ignore
+      arg.username,
+      // @ts-ignore
+      arg.selectedRepo,
+      // @ts-ignore
+    )
     return res.data
   },
 )
@@ -16,6 +36,7 @@ const slice = createSlice({
   initialState: {
     githubRepos: [],
     currentUser: null,
+    readMeFile: null,
   },
   reducers: {
     setCurrentUser: (state, action) => {
@@ -24,7 +45,18 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGithubRepos.fulfilled, (state, action) => {
-      state.githubRepos = [...state.githubRepos, ...action.payload]
+      // @ts-ignore
+      if (action.meta.arg.type === 'replace') {
+        state.githubRepos = [...action.payload]
+      }
+      // @ts-ignore
+      if (action.meta.arg.type === 'add' && action.payload.length > 0) {
+        state.githubRepos = [...state.githubRepos, ...action.payload]
+      }
+    })
+    builder.addCase(fetchReadMeFile.fulfilled, (state, action) => {
+      console.log('action.payload', action.payload)
+      state.readMeFile = action.payload
     })
   },
 })
@@ -33,4 +65,5 @@ reducerRegister.register(slice.name, slice.reducer)
 
 export const getGithubRepos = (state) => state[slice.name].githubRepos
 export const getCurrentUser = (state) => state[slice.name].currentUser
+export const getReadMeFile = (state) => state[slice.name].readMeFile
 export const { setCurrentUser } = slice.actions
