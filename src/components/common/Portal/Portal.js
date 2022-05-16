@@ -4,8 +4,6 @@ import styled from 'styled-components'
 const StylePortal = styled.div`
   position: absolute;
   top: 0;
-  display: flex;
-  justify-content: center;
 `
 
 const Portal = ({ children }) => {

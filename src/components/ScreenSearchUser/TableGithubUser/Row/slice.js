@@ -42,6 +42,9 @@ const slice = createSlice({
     setCurrentUser: (state, action) => {
       state.currentUser = action.payload
     },
+    removeReadMeFile: (state) => {
+      state.readMeFile = null
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGithubRepos.fulfilled, (state, action) => {
@@ -55,7 +58,6 @@ const slice = createSlice({
       }
     })
     builder.addCase(fetchReadMeFile.fulfilled, (state, action) => {
-      console.log('action.payload', action.payload)
       state.readMeFile = action.payload
     })
   },
@@ -66,4 +68,4 @@ reducerRegister.register(slice.name, slice.reducer)
 export const getGithubRepos = (state) => state[slice.name].githubRepos
 export const getCurrentUser = (state) => state[slice.name].currentUser
 export const getReadMeFile = (state) => state[slice.name].readMeFile
-export const { setCurrentUser } = slice.actions
+export const { setCurrentUser, removeReadMeFile } = slice.actions

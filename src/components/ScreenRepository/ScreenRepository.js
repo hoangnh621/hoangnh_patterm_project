@@ -11,21 +11,21 @@ const StyleScreenRepos = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-  .wrapItemRepos {
+  #wrapItemRepos {
     width: 80%;
     display: flex;
     height: 100%;
   }
 
   @media screen and (max-width: 640px) {
-    .wrapItemRepos {
+    #wrapItemRepos {
       flex-direction: column;
       width: 90%;
     }
   }
   @media screen and (max-width: 960px) {
     padding: 2% 0;
-    .wrapItemRepos {
+    #wrapItemRepos {
     }
   }
 `
@@ -55,7 +55,7 @@ const ScreenRepository = () => {
   })
   return (
     <StyleScreenRepos id="screenRepository" ref={refScreenRepository}>
-      <div className="wrapItemRepos">
+      <div id="wrapItemRepos">
         <UserDetail />
         <ReposTable />
       </div>

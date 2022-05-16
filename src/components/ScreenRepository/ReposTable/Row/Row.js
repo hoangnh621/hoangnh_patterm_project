@@ -1,12 +1,11 @@
 // @ts-nocheck
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import globalStyles from '../../../../styles/globalStyles'
 import {
   fetchReadMeFile,
   getCurrentUser,
-  getReadMeFile,
 } from '../../../ScreenSearchUser/TableGithubUser/Row/slice'
 import ReadMePopUp from './ReadMePopUp/ReadMePopUp'
 
@@ -37,10 +36,7 @@ const Row = ({ repos }) => {
   }
   const dispatch = useDispatch()
   const currentUser = useSelector(getCurrentUser)
-  const readMeFile = useSelector(getReadMeFile)
-  useEffect(() => {
-    if (readMeFile) console.log('readMeFile', atob(readMeFile.content))
-  })
+
   const popupReadme = () => {
     dispatch(
       fetchReadMeFile({

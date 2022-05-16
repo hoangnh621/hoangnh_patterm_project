@@ -9,7 +9,7 @@ const StyledUserDetail = styled.div`
   height: 100%;
   width: 33.3%;
   padding-right: 1.5%;
-  .wrapDetailItem {
+  #wrapDetailItem {
     background-color: ${globalStyles.itemDarkBackGround};
     border-radius: 5px;
     height: 100%;
@@ -60,21 +60,27 @@ const UserDetail = () => {
 
   return (
     <StyledUserDetail>
-      <div className="wrapDetailItem">
-        <div>
-          <Avatar src={currentUser.avatar_url} size={110} />
-          <h4>{currentUser.login}</h4>
-        </div>
-        <div>
-          <h3>Details</h3>
-          <hr />
-          <p>Username: {currentUser.login}</p>
-          <p>ID: {currentUser.id}</p>
-          <p>Link: {currentUser.html_url}</p>
-          <p>Type: {currentUser.type}</p>
-          <p>Score: {currentUser.score}</p>
-          <p>Site Admin: {currentUser.site_admin ? 'True' : 'False'}</p>
-        </div>
+      <div id="wrapDetailItem">
+        {currentUser ? (
+          <>
+            <div>
+              <Avatar src={currentUser.avatar_url} size={110} />
+              <h4>{currentUser.login}</h4>
+            </div>
+            <div>
+              <h3>Details</h3>
+              <hr />
+              <p>Username: {currentUser.login}</p>
+              <p>ID: {currentUser.id}</p>
+              <p>Link: {currentUser.html_url}</p>
+              <p>Type: {currentUser.type}</p>
+              <p>Score: {currentUser.score}</p>
+              <p>Site Admin: {currentUser.site_admin ? 'True' : 'False'}</p>
+            </div>
+          </>
+        ) : (
+          true
+        )}
       </div>
     </StyledUserDetail>
   )

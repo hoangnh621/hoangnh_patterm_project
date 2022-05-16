@@ -1,7 +1,8 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import globalStyles from '../../../styles/globalStyles'
+import Button from '../../common/Button/Button'
 import './icomoon/style.css'
 
 const Logo = styled.div`
@@ -10,6 +11,10 @@ const Logo = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${globalStyles.itemDarkBackGround};
+  button {
+    position: absolute;
+    left: 62px;
+  }
   a {
     display: flex;
     text-decoration: none;
@@ -51,8 +56,16 @@ const Logo = styled.div`
 `
 
 const Header = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
+
   return (
     <Logo id="header">
+      {location.pathname === '/repository' ? (
+        <Button onClick={() => navigate('/')}>Back</Button>
+      ) : (
+        true
+      )}
       <NavLink to="/">
         <span className="icon-github"></span>
         <h2>GITHUB</h2>

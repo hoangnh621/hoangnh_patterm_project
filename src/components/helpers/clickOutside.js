@@ -1,4 +1,4 @@
-const handleMouseUp = (targetElement, handleToggle) => {
+const clickOutside = (targetElement, handleToggle) => {
   return (e) => {
     const withinBoundaries = e.composedPath().includes(targetElement)
     if (!withinBoundaries) {
@@ -7,4 +7,4 @@ const handleMouseUp = (targetElement, handleToggle) => {
   }
 }
 
-export default handleMouseUp
+export default clickOutside

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // @ts-nocheck
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import globalStyles from '../../../styles/globalStyles'
@@ -153,6 +153,7 @@ const StyleReposTable = styled.div`
 `
 
 const ReposTable = () => {
+  const wrapTable = useRef(null)
   const githubRepos = useSelector(getGithubRepos)
   const [toggleButton, setToggleButton] = useState(false)
   const [increasePage, setIncreasePage] = useState(2)
@@ -160,22 +161,23 @@ const ReposTable = () => {
     setIncreasePage((prev) => prev + 1)
   }
   //calculate the repository table
-  const wrapTable = document.getElementById('wrapTable')
-  useEffect(() => {
+  useLayoutEffect(() => {
     const wrapReposTable = document.getElementById('wrapReposTable')
     const wrapReposTableHeight = wrapReposTable.getBoundingClientRect().height
     const tableHeader = document.getElementById('tableHeader')
     const tableHeaderHeight = tableHeader.getBoundingClientRect().height
-    wrapTable.style.height = wrapReposTableHeight - tableHeaderHeight + 'px'
+    wrapTable.current.style.height =
+      wrapReposTableHeight - tableHeaderHeight + 'px'
   })
   //recalculate when changing window size
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleResize = () => {
       const wrapReposTable = document.getElementById('wrapReposTable')
       const wrapReposTableHeight = wrapReposTable.getBoundingClientRect().height
       const tableHeader = document.getElementById('tableHeader')
       const tableHeaderHeight = tableHeader.getBoundingClientRect().height
-      wrapTable.style.height = wrapReposTableHeight - tableHeaderHeight + 'px'
+      wrapTable.current.style.height =
+        wrapReposTableHeight - tableHeaderHeight + 'px'
     }
     window.addEventListener('resize', handleResize)
     return () => window.addEventListener('resize', handleResize)
@@ -183,11 +185,12 @@ const ReposTable = () => {
   // add event API scroll
   const dispatch = useDispatch()
   const currentUser = useSelector(getCurrentUser)
-  useEffect(() => {
-    const wrapTable = document.getElementById('wrapTable')
+  useLayoutEffect(() => {
     const handleScroll = () => {
       const isScrollBottom =
-        wrapTable.scrollHeight - wrapTable.clientHeight - wrapTable.scrollTop
+        wrapTable.current.scrollHeight -
+        wrapTable.current.clientHeight -
+        wrapTable.current.scrollTop
       if (Math.abs(isScrollBottom) < 1) {
         dispatch(
           fetchGithubRepos({
@@ -199,19 +202,19 @@ const ReposTable = () => {
         handlePage()
       }
     }
-    wrapTable.addEventListener('scroll', handleScroll)
-    return () => wrapTable.removeEventListener('scroll', handleScroll)
+    wrapTable.current.addEventListener('scroll', handleScroll)
+    return () => wrapTable.current.removeEventListener('scroll', handleScroll)
   }, [increasePage])
   // Toggle button
-  useEffect(() => {
-    const wrapTable = document.getElementById('wrapTable')
+  useLayoutEffect(() => {
     const handleToggleButton = () => {
-      if (wrapTable.scrollTop > wrapTable.clientHeight) {
+      if (wrapTable.current.scrollTop > wrapTable.current.clientHeight) {
         setToggleButton(true)
       } else setToggleButton(false)
     }
-    wrapTable.addEventListener('scroll', handleToggleButton)
-    return () => wrapTable.removeEventListener('scroll', handleToggleButton)
+    wrapTable.current.addEventListener('scroll', handleToggleButton)
+    return () =>
+      wrapTable.current.removeEventListener('scroll', handleToggleButton)
   }, [])
   return (
     <StyleReposTable>
@@ -219,7 +222,7 @@ const ReposTable = () => {
         <div id="tableHeader">
           <h4>Repository List</h4>
         </div>
-        <div id="wrapTable">
+        <div id="wrapTable" ref={wrapTable}>
           <table>
             <thead>
               <tr>
@@ -239,7 +242,7 @@ const ReposTable = () => {
           </table>
         </div>
       </div>
-      {toggleButton ? <ButtonMoveUp currentTable={wrapTable} /> : true}
+      {toggleButton ? <ButtonMoveUp currentTable={wrapTable.current} /> : true}
     </StyleReposTable>
   )
 }
