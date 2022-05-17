@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import pageNotFound from './undraw_page_not_found.svg'
 

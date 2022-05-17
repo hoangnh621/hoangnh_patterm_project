@@ -5,7 +5,7 @@ class githubServices {
     return axiosInstance.get(`/search/users?q=${username}&page=${page}`)
   }
 
-  getRepoByUsername(username, page = 1, type = 'replace') {
+  getRepoByUsername(username, page = 1) {
     return axiosInstance.get(`/users/${username}/repos?page=${page}`)
   }
 

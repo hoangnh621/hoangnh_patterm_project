@@ -1,9 +1,9 @@
 const debounce = (func, timeout = 500) => {
   let timer
-  return (...arg) => {
+  return (...args) => {
     clearTimeout(timer)
     timer = setTimeout(() => {
-      func.apply(this, arg)
+      func(...args)
     }, timeout)
   }
 }

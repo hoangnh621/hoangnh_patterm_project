@@ -1,4 +1,4 @@
-import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import globalStyles from '../../../styles/globalStyles'
 
@@ -12,6 +12,10 @@ const StyleBadge = styled.span`
 
 const Badge = ({ content }) => {
   return <StyleBadge>{content}</StyleBadge>
+}
+
+Badge.propTypes = {
+  content: PropTypes.string.isRequired,
 }
 
 export default Badge

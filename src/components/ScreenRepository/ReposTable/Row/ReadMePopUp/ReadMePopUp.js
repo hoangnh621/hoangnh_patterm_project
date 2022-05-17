@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import PropTypes from 'prop-types'
 import { useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,7 +9,6 @@ import globalStyles from '../../../../../styles/globalStyles'
 import Button from '../../../../common/Button/Button'
 import Portal from '../../../../common/Portal/Portal'
 import calculateHeightImgArea from '../../../../helpers/calculateHeightImgArea'
-// import clickOutside from '../../../../helpers/clickOutside'
 import {
   getReadMeFile,
   removeReadMeFile,
@@ -127,6 +127,10 @@ const ReadMePopUp = ({ handleToggle }) => {
       </StylePopUp>
     </Portal>
   )
+}
+
+ReadMePopUp.propTypes = {
+  handleToggle: PropTypes.func,
 }
 
 export default ReadMePopUp

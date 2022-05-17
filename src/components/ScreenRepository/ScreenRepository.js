@@ -18,6 +18,7 @@ const StyleScreenRepos = styled.div`
   }
 
   @media screen and (max-width: 640px) {
+    height: auto;
     #wrapItemRepos {
       flex-direction: column;
       width: 90%;

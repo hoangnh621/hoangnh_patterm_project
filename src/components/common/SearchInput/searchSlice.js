@@ -30,7 +30,7 @@ const searchSlice = createSlice({
         state.githubUsers = [...action.payload.items]
       }
       const newGithubUsers = [...state.githubUsers, ...action.payload.items]
-      if (newGithubUsers.length && action.meta.arg.type === 'add') {
+      if (action.meta.arg.type === 'add' && newGithubUsers.length > 0) {
         const idGithubUsers = newGithubUsers.map((user) => user.id)
         state.githubUsers = newGithubUsers.filter(
           ({ id }, index) => !idGithubUsers.includes(id, index + 1),

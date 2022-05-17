@@ -53,25 +53,25 @@ const StyleInput = styled.div`
 const SearchInput = () => {
   const searchValue = useSelector(getSearchValue)
   const dispatch = useDispatch()
-
   useEffect(() => {
     if (searchValue !== '') {
       dispatch(
-        // @ts-ignore
-        debounce(
-          // @ts-ignore
-          fetchGithubUser({
-            username: searchValue,
-            page: 1,
-            type: 'replace',
-          }),
-          1000,
-        ),
+        fetchGithubUser({
+          username: searchValue,
+          page: 1,
+          type: 'replace',
+        }),
       )
     } else {
       dispatch(removeGithubUser())
     }
   }, [dispatch, searchValue])
+
+  const onChange = (value) => {
+    dispatch(setSearchValue(value))
+  }
+
+  const debounceOnChange = debounce(onChange, 500)
 
   return (
     <StyleInput id="searchInput">
@@ -79,8 +79,7 @@ const SearchInput = () => {
       <input
         type="text"
         placeholder="Search by username"
-        value={searchValue}
-        onChange={(e) => dispatch(setSearchValue(e.target.value))}
+        onChange={(e) => debounceOnChange(e.target.value)}
       />
       <button
         onClick={() => {

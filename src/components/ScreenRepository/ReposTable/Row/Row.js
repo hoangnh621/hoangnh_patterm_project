@@ -1,4 +1,4 @@
-// @ts-nocheck
+import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -56,6 +56,10 @@ const Row = ({ repos }) => {
       {isPopup ? <ReadMePopUp handleToggle={handleToggle} /> : true}
     </StyleRow>
   )
+}
+
+Row.propTypes = {
+  repos: PropTypes.object.isRequired,
 }
 
 export default Row

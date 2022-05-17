@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 
@@ -9,6 +10,10 @@ const StylePortal = styled.div`
 const Portal = ({ children }) => {
   const container = document.querySelector('body')
   return createPortal(<StylePortal>{children}</StylePortal>, container)
+}
+
+Portal.propTypes = {
+  children: PropTypes.object.isRequired,
 }
 
 export default Portal

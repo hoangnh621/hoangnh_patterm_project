@@ -5,6 +5,6 @@ export const store = configureStore({
   reducer: { ...reducerRegister.reducers },
 })
 
-reducerRegister.replaceRootReducer((reducer = {}) => {
+reducerRegister.replaceRootReducer((reducer) => {
   store.replaceReducer(combineReducers({ ...reducer }))
 })

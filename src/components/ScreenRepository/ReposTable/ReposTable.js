@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-// @ts-nocheck
 import { useLayoutEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -74,12 +73,9 @@ const StyleReposTable = styled.div`
   }
   @media screen and (max-width: 640px) {
     padding: 0;
-    /* width: 100%; */
+    width: 100%;
     #wrapReposTable {
       #wrapTable {
-        /* &::-webkit-scrollbar {
-          width: 0;
-        } */
         table {
           thead {
             tr {
@@ -104,7 +100,6 @@ const StyleReposTable = styled.div`
     }
   }
   @media screen and (max-width: 960px) {
-    /* padding: 0; */
     #wrapReposTable {
       #wrapTable {
         table {
@@ -153,6 +148,7 @@ const StyleReposTable = styled.div`
 `
 
 const ReposTable = () => {
+  const SIZE_WHEN_UNMOUNT = 0
   const wrapTable = useRef(null)
   const githubRepos = useSelector(getGithubRepos)
   const [toggleButton, setToggleButton] = useState(false)
@@ -163,21 +159,29 @@ const ReposTable = () => {
   //calculate the repository table
   useLayoutEffect(() => {
     const wrapReposTable = document.getElementById('wrapReposTable')
-    const wrapReposTableHeight = wrapReposTable.getBoundingClientRect().height
+    const wrapReposTableHeight = wrapReposTable
+      ? wrapReposTable.getBoundingClientRect().height
+      : SIZE_WHEN_UNMOUNT
     const tableHeader = document.getElementById('tableHeader')
     const tableHeaderHeight = tableHeader.getBoundingClientRect().height
-    wrapTable.current.style.height =
-      wrapReposTableHeight - tableHeaderHeight + 'px'
+    if (wrapTable.current) {
+      wrapTable.current.style.height =
+        wrapReposTableHeight - tableHeaderHeight + 'px'
+    }
   })
   //recalculate when changing window size
   useLayoutEffect(() => {
     const handleResize = () => {
       const wrapReposTable = document.getElementById('wrapReposTable')
-      const wrapReposTableHeight = wrapReposTable.getBoundingClientRect().height
+      const wrapReposTableHeight = wrapReposTable
+        ? wrapReposTable.getBoundingClientRect().height
+        : SIZE_WHEN_UNMOUNT
       const tableHeader = document.getElementById('tableHeader')
       const tableHeaderHeight = tableHeader.getBoundingClientRect().height
-      wrapTable.current.style.height =
-        wrapReposTableHeight - tableHeaderHeight + 'px'
+      if (wrapTable.current) {
+        wrapTable.current.style.height =
+          wrapReposTableHeight - tableHeaderHeight + 'px'
+      }
     }
     window.addEventListener('resize', handleResize)
     return () => window.addEventListener('resize', handleResize)

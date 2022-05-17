@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import styled from 'styled-components'
 import globalStyles from '../../../styles/globalStyles'
@@ -31,6 +32,10 @@ const ButtonMoveUp = ({ currentTable }) => {
       <span className="icon-arrow-up2"></span>
     </StyledButton>
   )
+}
+
+ButtonMoveUp.propTypes = {
+  currentTable: PropTypes.object.isRequired,
 }
 
 export default ButtonMoveUp

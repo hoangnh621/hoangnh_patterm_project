@@ -6,11 +6,8 @@ export const fetchGithubRepos = createAsyncThunk(
   'repos/fetchGithubRepos',
   async (arg) => {
     const res = await githubServices.getRepoByUsername(
-      // @ts-ignore
       arg.username,
-      // @ts-ignore
       arg.page,
-      // @ts-ignore
       arg.type,
     )
     return res.data
@@ -21,11 +18,8 @@ export const fetchReadMeFile = createAsyncThunk(
   'repos/fetchReadMeFile',
   async (arg) => {
     const res = await githubServices.getReadMeTxt(
-      // @ts-ignore
       arg.username,
-      // @ts-ignore
       arg.selectedRepo,
-      // @ts-ignore
     )
     return res.data
   },
@@ -48,11 +42,9 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGithubRepos.fulfilled, (state, action) => {
-      // @ts-ignore
       if (action.meta.arg.type === 'replace') {
         state.githubRepos = [...action.payload]
       }
-      // @ts-ignore
       if (action.meta.arg.type === 'add' && action.payload.length > 0) {
         state.githubRepos = [...state.githubRepos, ...action.payload]
       }

@@ -1,4 +1,4 @@
-import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import globalStyles from '../../../styles/globalStyles'
 
@@ -14,6 +14,11 @@ const StyleButton = styled.button`
 
 const Button = ({ children, onClick }) => {
   return <StyleButton onClick={onClick}>{children}</StyleButton>
+}
+
+Button.propTypes = {
+  children: PropTypes.string,
+  onClick: PropTypes.func,
 }
 
 export default Button
