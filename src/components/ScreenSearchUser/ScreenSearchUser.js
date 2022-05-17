@@ -35,9 +35,8 @@ const ScreenSearchUser = () => {
   const refScreenSearchUser = useRef(null)
   // calculate the search user area
   useEffect(() => {
-    const elementScreenSearchUser = document.getElementById('screenSearchUser')
     const newHeightWrapImg = calculateHeightImgArea()
-    elementScreenSearchUser.style.height = newHeightWrapImg + 'px'
+    refScreenSearchUser.current.style.height = newHeightWrapImg + 'px'
   }, [])
   //recalculate when changing window size
   useEffect(() => {

@@ -31,14 +31,14 @@ const StyleScreenRepos = styled.div`
 `
 
 const ScreenRepository = () => {
+  const MOBILE_WIDTH = 640
   const refScreenRepository = useRef(null)
   // calculate the repository area
   useEffect(() => {
-    const elementScreenRepos = document.getElementById('screenRepository')
     const screenWidth = window.innerWidth
     const newHeight = calculateHeightImgArea()
-    if (screenWidth > 640) {
-      elementScreenRepos.style.height = newHeight + 'px'
+    if (screenWidth > MOBILE_WIDTH) {
+      refScreenRepository.current.style.height = newHeight + 'px'
     }
   }, [])
   //recalculate when changing window size
@@ -46,7 +46,7 @@ const ScreenRepository = () => {
     const handleResize = () => {
       const screenWidth = window.innerWidth
       const newHeight = calculateHeightImgArea()
-      if (screenWidth > 640) {
+      if (screenWidth > MOBILE_WIDTH) {
         refScreenRepository.current.style.height = newHeight + 'px'
       }
     }
@@ -54,7 +54,7 @@ const ScreenRepository = () => {
     return () => window.removeEventListener('resize', handleResize)
   })
   return (
-    <StyleScreenRepos id="screenRepository" ref={refScreenRepository}>
+    <StyleScreenRepos ref={refScreenRepository}>
       <div id="wrapItemRepos">
         <UserDetail />
         <ReposTable />

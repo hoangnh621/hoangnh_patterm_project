@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import globalStyles from '../../../styles/globalStyles'
+import debounce from '../../helpers/debounce'
 import './icomoonClose/style.css'
 import './icomoonSearch/style.css'
 import {
@@ -52,10 +53,20 @@ const StyleInput = styled.div`
 const SearchInput = () => {
   const searchValue = useSelector(getSearchValue)
   const dispatch = useDispatch()
+
   useEffect(() => {
     if (searchValue !== '') {
       dispatch(
-        fetchGithubUser({ username: searchValue, page: 1, type: 'replace' }),
+        // @ts-ignore
+        debounce(
+          // @ts-ignore
+          fetchGithubUser({
+            username: searchValue,
+            page: 1,
+            type: 'replace',
+          }),
+          1000,
+        ),
       )
     } else {
       dispatch(removeGithubUser())
