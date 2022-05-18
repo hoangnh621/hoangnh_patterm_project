@@ -42,6 +42,9 @@ const Logo = styled.div`
   }
 
   @media screen and (max-width: 640px) {
+    button {
+      left: 32px;
+    }
     a {
       span {
         font-size: 40px;
