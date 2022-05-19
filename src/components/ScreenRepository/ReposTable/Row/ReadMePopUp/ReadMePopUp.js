@@ -9,6 +9,7 @@ import globalStyles from '../../../../../styles/globalStyles'
 import Button from '../../../../common/Button/Button'
 import Portal from '../../../../common/Portal/Portal'
 import calculateHeightImgArea from '../../../../helpers/calculateHeightImgArea'
+import useOutsideClick from '../../../../helpers/useOutsideClick'
 import { getReadMeFile } from '../../../../ScreenSearchUser/TableGithubUser/Row/slice'
 
 const StylePopUp = styled.div`
@@ -51,9 +52,10 @@ const StylePopUp = styled.div`
   }
 `
 
-const ReadMePopUp = ({ handleToggle, handleClose }) => {
+const ReadMePopUp = ({ handleToggle }) => {
   const popupReadmeElement = useRef(null)
   const removeReadMe = useRef(null)
+  useOutsideClick(popupReadmeElement, handleToggle)
   //calculate position and height
   useEffect(() => {
     //set top
@@ -94,16 +96,7 @@ const ReadMePopUp = ({ handleToggle, handleClose }) => {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   })
-  //handle click outside
-  useEffect(() => {
-    const handleClick = (e) => {
-      e.stopPropagation()
-    }
-    popupReadmeElement.current.addEventListener('click', handleClick)
-    return () => {
-      popupReadmeElement.current?.removeEventListener('click', handleClick)
-    }
-  }, [])
+
   //handle click close button
   useEffect(() => {
     const handleClose = () => {

@@ -39,13 +39,15 @@ const Row = ({ repos }) => {
   const currentUser = useSelector(getCurrentUser)
 
   const popupReadme = () => {
-    dispatch(
-      fetchReadMeFile({
-        username: currentUser.login,
-        selectedRepo: repos.name,
-      }),
-    )
-    handleToggle()
+    if (!isPopup) {
+      dispatch(
+        fetchReadMeFile({
+          username: currentUser.login,
+          selectedRepo: repos.name,
+        }),
+      )
+      handleToggle()
+    }
   }
 
   return (

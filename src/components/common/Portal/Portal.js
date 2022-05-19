@@ -9,7 +9,10 @@ const StylePortal = styled.div`
 
 const Portal = ({ children }) => {
   const container = document.querySelector('body')
-  return createPortal(<StylePortal>{children}</StylePortal>, container)
+  return createPortal(
+    <StylePortal id="portal">{children}</StylePortal>,
+    container,
+  )
 }
 
 Portal.propTypes = {
