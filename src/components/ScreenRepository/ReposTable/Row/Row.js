@@ -34,6 +34,7 @@ const Row = ({ repos }) => {
   const handleToggle = () => {
     setIsPopup(!isPopup)
   }
+
   const dispatch = useDispatch()
   const currentUser = useSelector(getCurrentUser)
 

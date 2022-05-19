@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { forwardRef } from 'react'
 import styled from 'styled-components'
 import globalStyles from '../../../styles/globalStyles'
 
@@ -12,9 +13,13 @@ const StyleButton = styled.button`
   box-shadow: ${globalStyles.primaryTextColor} 0px 1px 20px 1px;
 `
 
-const Button = ({ children, onClick }) => {
-  return <StyleButton onClick={onClick}>{children}</StyleButton>
-}
+const Button = forwardRef(({ children, onClick }, ref) => {
+  return (
+    <StyleButton ref={ref} onClick={onClick}>
+      {children}
+    </StyleButton>
+  )
+})
 
 Button.propTypes = {
   children: PropTypes.string,

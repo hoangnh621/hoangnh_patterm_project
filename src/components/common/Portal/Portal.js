@@ -3,8 +3,8 @@ import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 
 const StylePortal = styled.div`
-  position: absolute;
-  top: 0;
+  position: fixed;
+  inset: 0;
 `
 
 const Portal = ({ children }) => {
